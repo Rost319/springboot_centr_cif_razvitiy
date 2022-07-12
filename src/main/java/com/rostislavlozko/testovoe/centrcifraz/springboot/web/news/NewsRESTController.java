@@ -2,7 +2,7 @@ package com.rostislavlozko.testovoe.centrcifraz.springboot.web.news;
 
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
-import com.rostislavlozko.testovoe.centrcifraz.springboot.service.NewsService;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.service.news.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,7 @@ public class NewsRESTController {
     }
 
     @PutMapping(value = "/{id}")
-    public News update(@RequestBody News news, @PathVariable int id) throws NullPointerException {
+    public News update(@RequestBody News news, @PathVariable int id) {
         if(newsService.get(id) != null){
             newsService.save(news);
             return news;

@@ -1,4 +1,4 @@
-package com.rostislavlozko.testovoe.centrcifraz.springboot.service;
+package com.rostislavlozko.testovoe.centrcifraz.springboot.service.news;
 
 
 

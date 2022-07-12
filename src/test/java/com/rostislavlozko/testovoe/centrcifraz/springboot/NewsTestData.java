@@ -16,8 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NewsTestData {
 
 
-    public static final News NEWS1 = new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", 100000);
-    public static final News NEWS2 = new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", 100001);
+    public static final News NEWS1 = new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", 100002);
+    public static final News NEWS2 = new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", 100003);
 
     static {
         NEWS1.setId(100000);
@@ -45,10 +45,6 @@ public class NewsTestData {
 
     public static void assertMatch(Iterable<News> actual, Iterable<News> expected) {
         assertThat(actual).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
-    }
-
-    public static void assertEqualsStatus(MvcResult mvcResult){
-        assertEquals(200, mvcResult.getResponse().getStatus());
     }
 
     public static String getContent(MvcResult mvcResult){
