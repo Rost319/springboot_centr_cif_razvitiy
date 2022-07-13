@@ -1,6 +1,7 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot;
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 
@@ -8,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
+import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE1;
+import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,8 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NewsTestData {
 
 
-    public static final News NEWS1 = new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", 100002);
-    public static final News NEWS2 = new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", 100003);
+    public static final News NEWS1 = new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", NEWS_TYPE1);
+    public static final News NEWS2 = new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", NEWS_TYPE2);
 
     static {
         NEWS1.setId(100000);
@@ -28,11 +31,11 @@ public class NewsTestData {
     public static final List<News> NEWS_LIST = List.of(NEWS1, NEWS2);
 
     public static News getNew() {
-        return  new News("Created news", "Description short", "Description full", 100002);
+        return  new News("Created news", "Description short", "Description full", new NewsType("News type for create news", "yellow"));
     }
 
     public static News getUpdated() {
-        return new News("Update news", "Description short update", "Description full update", 100004);
+        return new News("Update news", "Description short update", "Description full update", new NewsType("News type for update news", "yellow"));
     }
 
     public static void assertMatch(News actual, News expected) {

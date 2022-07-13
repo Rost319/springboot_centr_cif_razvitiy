@@ -21,17 +21,19 @@ public class News {
     @Column(name = "description_full")
     private String descriptionFull;
 
-    @Column(name = "type_news_id")
-    private int typeNewsId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "type_news_id")
+    private NewsType newsType;
 
     public News() {
     }
 
-    public News(String name, String surname, String department, int salary) {
+    public News(String name, String descriptionShort, String descriptionFull, NewsType newsType) {
         this.name = name;
-        this.descriptionShort = surname;
-        this.descriptionFull = department;
-        this.typeNewsId = salary;
+        this.descriptionShort = descriptionShort;
+        this.descriptionFull = descriptionFull;
+        this.newsType = newsType;
     }
 
     public Integer getId() {
@@ -54,25 +56,35 @@ public class News {
         return descriptionShort;
     }
 
-    public void setDescriptionShort(String surname) {
-        this.descriptionShort = surname;
+    public void setDescriptionShort(String descriptionShort) {
+        this.descriptionShort = descriptionShort;
     }
 
     public String getDescriptionFull() {
         return descriptionFull;
     }
 
-    public void setDescriptionFull(String department) {
-        this.descriptionFull = department;
+    public void setDescriptionFull(String descriptionFull) {
+        this.descriptionFull = descriptionFull;
     }
 
-    public int getTypeNewsId() {
-        return typeNewsId;
+    public NewsType getNewsType() {
+        return newsType;
     }
 
-    public void setTypeNewsId(int salary) {
-        this.typeNewsId = salary;
+    public void setNewsType(NewsType newsType) {
+        this.newsType = newsType;
     }
 
 
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", descriptionShort='" + descriptionShort + '\'' +
+                ", descriptionFull='" + descriptionFull + '\'' +
+                ", newsType=" + newsType +
+                '}';
+    }
 }

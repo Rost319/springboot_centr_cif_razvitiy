@@ -15,10 +15,11 @@ public class SpringbootApplication {
     @Bean
     InitializingBean saveData(NewsRepository newsRepo, NewsTypeRepository newsTypeRepo){
         return ()->{
-            newsRepo.save(new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", 100002));
-            newsRepo.save(new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", 100003));
-            newsTypeRepo.save(new NewsType("General", "Green"));
-            newsTypeRepo.save(new NewsType("IT", "Red"));
+//            newsTypeRepo.save(new NewsType("General", "Green"));
+//            newsTypeRepo.save(new NewsType("IT", "Red"));
+            newsRepo.save(new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", new NewsType("General","Green")));
+            newsRepo.save(new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", new NewsType("IT","Red")));
+
         };
     }
 
