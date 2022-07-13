@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Bean;
 public class SpringbootApplication {
 
     @Bean
-    InitializingBean saveData(NewsRepository newsRepo, NewsTypeRepository newsTypeRepo){
-        return ()->{
-//            newsTypeRepo.save(new NewsType("General", "Green"));
-//            newsTypeRepo.save(new NewsType("IT", "Red"));
-            newsRepo.save(new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", new NewsType("General","Green")));
-            newsRepo.save(new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", new NewsType("IT","Red")));
+    InitializingBean saveData(NewsRepository newsRepo, NewsTypeRepository newsTypeRepo) {
+        return () -> {
+            NewsType newsType1 = new NewsType("General", "Green");
+            NewsType newsType2 = new NewsType("IT", "Red");
+            newsRepo.save(new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", newsType1));
+            newsRepo.save(new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", newsType2));
 
         };
     }

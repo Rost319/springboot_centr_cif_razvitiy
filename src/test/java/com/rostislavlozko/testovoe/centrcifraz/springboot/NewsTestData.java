@@ -24,7 +24,7 @@ public class NewsTestData {
 
     static {
         NEWS1.setId(100000);
-        NEWS2.setId(100001);
+        NEWS2.setId(100002);
     }
 
 
@@ -35,7 +35,9 @@ public class NewsTestData {
     }
 
     public static News getUpdated() {
-        return new News("Update news", "Description short update", "Description full update", new NewsType("News type for update news", "yellow"));
+        NewsType newsType = new NewsType("News type for update news", "yellow");
+        newsType.setId(100003);
+        return new News("Update news", "Description short update", "Description full update", newsType);
     }
 
     public static void assertMatch(News actual, News expected) {

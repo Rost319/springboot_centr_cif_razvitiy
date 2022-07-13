@@ -1,6 +1,9 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.web.newstype;
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.service.news.NewsService;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.service.newstype.NewsTypeService;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.web.news.NewsRESTController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,9 @@ public class NewsTypeRESTControllerTest {
 
     @Autowired
     NewsTypeRESTController newsTypeRESTController;
+
+    @Autowired
+    NewsRESTController newsRESTController;
 
     @Test
     public void getTest() throws Exception {
@@ -97,6 +103,7 @@ public class NewsTypeRESTControllerTest {
     @Test
     public void deleteTest() throws Exception {
         int id = NEWS_TYPE1.getId();
+        newsRESTController.delete(100000);
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + id))
                 .andExpect(status().isOk())
                 .andReturn();

@@ -18,7 +18,7 @@ public class NewsTypeTestData {
     public static final NewsType NEWS_TYPE2 = new NewsType("IT", "Red");
 
     static {
-        NEWS_TYPE1.setId(100002);
+        NEWS_TYPE1.setId(100001);
         NEWS_TYPE2.setId(100003);
     }
 

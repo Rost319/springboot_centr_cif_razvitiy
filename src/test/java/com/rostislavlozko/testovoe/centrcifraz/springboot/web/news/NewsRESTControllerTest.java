@@ -72,6 +72,7 @@ public class NewsRESTControllerTest {
 
         News result = readValue(getContent(mvcResult), News.class);
         news.setId(NEWS_TYPE2.getId() + 1);
+        news.getNewsType().setId(NEWS_TYPE2.getId() + 2);
         assertMatch(result, news);
 
     }
