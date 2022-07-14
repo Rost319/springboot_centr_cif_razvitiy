@@ -6,6 +6,7 @@ import com.rostislavlozko.testovoe.centrcifraz.springboot.dao.NewsTypeRepository
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class NewsTypeServiceImpl implements NewsTypeService {
         return newsTypeRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void save(NewsType newsType) {
         newsTypeRepository.save(newsType);
@@ -36,6 +38,7 @@ public class NewsTypeServiceImpl implements NewsTypeService {
         return newsType;
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
         newsTypeRepository.deleteById(id);

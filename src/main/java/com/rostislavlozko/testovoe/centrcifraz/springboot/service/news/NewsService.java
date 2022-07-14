@@ -19,6 +19,6 @@ public interface NewsService {
 
     public void delete(int id);
 
-    public List<News> findAllByName(String name);
+    public List<News> findAllByNewsType(String name);
 
 }

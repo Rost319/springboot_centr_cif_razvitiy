@@ -1,5 +1,9 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,19 +25,24 @@ public class News {
     @Column(name = "description_full")
     private String descriptionFull;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "type_news_id")
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//            CascadeType.REFRESH, CascadeType.DETACH})
+//    @JoinColumn(name = "type_news_id")
+//    private NewsType newsType;
+
+
+    @ManyToOne
+    @JoinColumn(name = "type_news_id", nullable = false)
     private NewsType newsType;
 
     public News() {
     }
 
-    public News(String name, String descriptionShort, String descriptionFull, NewsType newsType) {
+    public News(String name, String descriptionShort, String descriptionFull) {
         this.name = name;
         this.descriptionShort = descriptionShort;
         this.descriptionFull = descriptionFull;
-        this.newsType = newsType;
+
     }
 
     public Integer getId() {

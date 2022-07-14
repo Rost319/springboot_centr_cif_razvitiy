@@ -1,7 +1,11 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "news_type")
@@ -18,6 +22,10 @@ public class NewsType {
 
     @Column(name = "color_type")
     private String color;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, mappedBy = "newsType")
+    protected List<News> newsList = new ArrayList<>();
 
     public NewsType() {
     }
@@ -49,6 +57,18 @@ public class NewsType {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
+    }
+
+    public void addNews(News news) {
+        newsList.add(news);
     }
 
     @Override
