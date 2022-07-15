@@ -1,8 +1,11 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +20,11 @@ public class NewsType {
     private Integer id;
 
     @Column(name = "name_type")
+    @NotBlank
     private String name;
 
     @Column(name = "color_type")
+    @NotBlank
     private String color;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -78,6 +83,23 @@ public class NewsType {
                 ", name='" + name + '\'' +
                 ", color=" + color +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        NewsType that = (NewsType) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 
 }

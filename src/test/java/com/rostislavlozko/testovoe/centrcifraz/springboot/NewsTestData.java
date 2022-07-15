@@ -1,20 +1,15 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot;
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
-import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
-
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE1;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE2;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 public class NewsTestData {
@@ -49,12 +44,7 @@ public class NewsTestData {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
-    public static void assertMatch(Iterable<News> actual, News... expected) {
-        assertMatch(actual, List.of(expected));
-    }
-
     public static void assertMatch(Iterable<News> actual, Iterable<News> expected) {
-//        assertThat(actual).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
         assertThat(actual).usingRecursiveFieldByFieldElementComparatorIgnoringFields("newsType").isEqualTo(expected);
     }
 
@@ -67,11 +57,4 @@ public class NewsTestData {
         return null;
     }
 
-//    public static ResultMatcher contentJson(News... expected) {
-//        return contentJson(List.of(expected));
-//    }
-//
-//    public static ResultMatcher contentJson(Iterable<News> expected) {
-//        return result -> assertThat(readListFromJsonMvcResult(result, News.class)).isEqualTo(expected);
-//    }
 }

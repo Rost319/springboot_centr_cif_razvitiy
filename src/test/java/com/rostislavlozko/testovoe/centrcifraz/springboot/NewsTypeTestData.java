@@ -3,13 +3,13 @@ package com.rostislavlozko.testovoe.centrcifraz.springboot;
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 import org.springframework.test.web.servlet.MvcResult;
-
 import java.io.UnsupportedEncodingException;
+
 import java.util.List;
 
-import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTestData.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+
 
 
 public class NewsTypeTestData {
@@ -22,9 +22,6 @@ public class NewsTypeTestData {
         NEWS_TYPE1.setId(100000);
         NEWS_TYPE2.setId(100003);
 
-//        NEWS_TYPE1.addNews(NEWS1);
-//        NEWS_TYPE1.addNews(NEWS3);
-//        NEWS_TYPE2.addNews(NEWS2);
     }
 
 
@@ -42,12 +39,7 @@ public class NewsTypeTestData {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
-    public static void assertMatch(Iterable<NewsType> actual, NewsType... expected) {
-        assertMatch(actual, List.of(expected));
-    }
-
     public static void assertMatch(Iterable<NewsType> actual, Iterable<NewsType> expected) {
-//        assertThat(actual).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
         assertThat(actual).usingRecursiveFieldByFieldElementComparatorIgnoringFields("newsList").isEqualTo(expected);
     }
 

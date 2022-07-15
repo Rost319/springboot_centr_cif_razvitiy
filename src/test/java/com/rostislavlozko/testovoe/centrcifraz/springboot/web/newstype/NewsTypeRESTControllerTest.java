@@ -1,16 +1,12 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.web.newstype;
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
-import com.rostislavlozko.testovoe.centrcifraz.springboot.exception.ResourceNotFoundException;
-import com.rostislavlozko.testovoe.centrcifraz.springboot.service.news.NewsService;
-import com.rostislavlozko.testovoe.centrcifraz.springboot.service.newstype.NewsTypeService;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.web.news.NewsRESTController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,7 +20,6 @@ import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTestData.NE
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.*;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE1;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.web.json.JsonUtil.*;
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)

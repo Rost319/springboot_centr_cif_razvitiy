@@ -11,6 +11,8 @@ CREATE TABLE news_type
     name_type   VARCHAR(255)            NOT NULL,
     color_type  VARCHAR(255)            NOT NULL
 );
+CREATE UNIQUE INDEX news_unique_name_type_color_type
+    ON news_type (name_type, color_type);
 
 CREATE TABLE news
 (

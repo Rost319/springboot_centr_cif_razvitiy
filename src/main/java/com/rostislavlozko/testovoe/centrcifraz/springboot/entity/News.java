@@ -1,10 +1,16 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
-@Table(name = "news", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "description_short" }) })
+@Table(name = "news")
 public class News {
 
     @Id
@@ -14,12 +20,15 @@ public class News {
     private Integer id;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "description_short")
+    @NotBlank
     private String descriptionShort;
 
     @Column(name = "description_full")
+    @NotBlank
     private String descriptionFull;
 
     @ManyToOne
@@ -86,5 +95,22 @@ public class News {
                 ", descriptionFull='" + descriptionFull + '\'' +
                 ", newsType=" + newsType +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        News that = (News) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }

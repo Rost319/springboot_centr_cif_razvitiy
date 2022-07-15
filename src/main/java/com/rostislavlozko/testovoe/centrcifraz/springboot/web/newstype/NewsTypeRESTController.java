@@ -2,13 +2,16 @@ package com.rostislavlozko.testovoe.centrcifraz.springboot.web.newstype;
 
 
 import com.rostislavlozko.testovoe.centrcifraz.springboot.dao.NewsTypeRepository;
+import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +29,13 @@ public class NewsTypeRESTController {
     }
 
     @PostMapping
-    public NewsType createNewsType(@RequestBody NewsType newsType) {
+    public NewsType createNewsType(@Valid @RequestBody NewsType newsType) {
         return newsTypeRepository.save(newsType);
     }
 
     @PutMapping("/{newsTypeId}")
-    public NewsType updateNewsType(@PathVariable Integer newsTypeId, @RequestBody NewsType newsTypeRequest) {
+    public NewsType updateNewsType(@PathVariable Integer newsTypeId,
+                                   @Valid  @RequestBody NewsType newsTypeRequest) {
         return newsTypeRepository.findById(newsTypeId).map(newsType -> {
             newsType.setName(newsTypeRequest.getName());
             newsType.setColor(newsTypeRequest.getColor());

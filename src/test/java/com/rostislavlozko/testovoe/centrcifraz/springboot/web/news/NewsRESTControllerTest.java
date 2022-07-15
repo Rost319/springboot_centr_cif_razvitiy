@@ -19,7 +19,6 @@ import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTestData.*;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE1;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.NewsTypeTestData.NEWS_TYPE2;
 import static com.rostislavlozko.testovoe.centrcifraz.springboot.web.json.JsonUtil.*;
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)

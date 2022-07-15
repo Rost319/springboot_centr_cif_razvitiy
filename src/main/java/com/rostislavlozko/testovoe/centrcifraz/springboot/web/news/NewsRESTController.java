@@ -5,17 +5,23 @@ import com.rostislavlozko.testovoe.centrcifraz.springboot.dao.NewsRepository;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.dao.NewsTypeRepository;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
 import com.rostislavlozko.testovoe.centrcifraz.springboot.exception.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = NewsRESTController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsRESTController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     static final String REST_URL = "/api/news";
 
     @Autowired
@@ -41,7 +47,7 @@ public class NewsRESTController {
 
     @PostMapping("/news-type/{newsTypeId}")
     public News createNews(@PathVariable(value = "newsTypeId") Integer newsTypeId,
-                           @RequestBody News news) {
+                           @Valid @RequestBody News news) {
         return newsTypeRepository.findById(newsTypeId).map(newsType -> {
             news.setNewsType(newsType);
             return newsRepository.save(news);
@@ -51,7 +57,7 @@ public class NewsRESTController {
     @PutMapping("/{newsId}/news-type/{newsTypeId}")
     public News updateNews(@PathVariable(value = "newsId") Integer newsId,
                            @PathVariable(value = "newsTypeId") Integer newsTypeId,
-                           @RequestBody News newsRequest) {
+                           @Valid @RequestBody News newsRequest) {
         if (!newsTypeRepository.existsById(newsTypeId)) {
             throw new ResourceNotFoundException("NewsTypeId " + newsTypeId + " not found");
         }
