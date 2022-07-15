@@ -1,5 +1,6 @@
 # Spring Boot, HSQL, Spring Data
 
-## Steps to Setup
+### Steps to Setup
 
-### 1. Clone the application
+##### 1. Clone the application
+
