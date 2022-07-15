@@ -1,13 +1,10 @@
 package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "news")
+@Table(name = "news", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "description_short" }) })
 public class News {
 
     @Id
@@ -24,12 +21,6 @@ public class News {
 
     @Column(name = "description_full")
     private String descriptionFull;
-
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-//            CascadeType.REFRESH, CascadeType.DETACH})
-//    @JoinColumn(name = "type_news_id")
-//    private NewsType newsType;
-
 
     @ManyToOne
     @JoinColumn(name = "type_news_id", nullable = false)

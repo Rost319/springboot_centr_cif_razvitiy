@@ -11,11 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(value = NewsRESTControllerTest.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class NewsRESTControllerTest {
-    static final String REST_URL = "/api";
+@RequestMapping(value = NewsRESTController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class NewsRESTController {
+    static final String REST_URL = "/api/news";
 
     @Autowired
     private NewsRepository newsRepository;
@@ -23,56 +24,56 @@ public class NewsRESTControllerTest {
     @Autowired
     private NewsTypeRepository newsTypeRepository;
 
-    @GetMapping("/news-type/{nameTypeNews}/news")
-    public List<News> getAllNewsByNewsType(@PathVariable (value = "nameTypeNews") String nameTypeNews) {
+    @GetMapping("/news-type/{nameTypeNews}")
+    public List<News> getAllNewsByNewsType(@PathVariable(value = "nameTypeNews") String nameTypeNews) {
         return newsRepository.findAllByNewsType(nameTypeNews);
     }
 
-    @GetMapping("/news/{id}")
-    public News getNews(@PathVariable int newsId){
-        News news = newsRepository.findById(newsId).get();
-
-        if(news == null) {
-            new ResourceNotFoundException("NewsId " + newsId + " not found");
+    @GetMapping("/{newsId}")
+    public News getNews(@PathVariable int newsId) {
+        Optional<News> optional = newsRepository.findById(newsId);
+        if(!optional.isPresent()){
+           throw new ResourceNotFoundException("NewsId " + newsId + " not found");
         }
 
-        return news;
+        return optional.get();
     }
 
-    @PostMapping("/news-type/{newsTypeId}/news")
-    public News createNews(@PathVariable (value = "newsTypeId") Integer newsTypeId,
-                                 @RequestBody News news) {
+    @PostMapping("/news-type/{newsTypeId}")
+    public News createNews(@PathVariable(value = "newsTypeId") Integer newsTypeId,
+                           @RequestBody News news) {
         return newsTypeRepository.findById(newsTypeId).map(newsType -> {
             news.setNewsType(newsType);
             return newsRepository.save(news);
         }).orElseThrow(() -> new ResourceNotFoundException("NewsId " + newsTypeId + " not found"));
     }
 
-    @PutMapping("/news-type/{newsTypeId}/news/{newsId}")
-    public News updateNews(@PathVariable (value = "newsTypeId") Integer newsTypeId,
-                                 @PathVariable (value = "newsId") Integer newsId,
-                                  @RequestBody News newsRequest) {
+    @PutMapping("/{newsId}/news-type/{newsTypeId}")
+    public News updateNews(@PathVariable(value = "newsId") Integer newsId,
+                           @PathVariable(value = "newsTypeId") Integer newsTypeId,
+                           @RequestBody News newsRequest) {
         if (!newsTypeRepository.existsById(newsTypeId)) {
             throw new ResourceNotFoundException("NewsTypeId " + newsTypeId + " not found");
         }
 
         return newsRepository.findById(newsId).map(news -> {
-            news.setNewsType(newsRequest.getNewsType());
+            news.setName(newsRequest.getName());
+            news.setDescriptionShort(newsRequest.getDescriptionShort());
+            news.setDescriptionFull(newsRequest.getDescriptionFull());
             return newsRepository.save(news);
         }).orElseThrow(() -> new ResourceNotFoundException("NewsId " + newsId + "not found"));
     }
 
-    @DeleteMapping("/news-type/{newsTypeId}/news/{newsId}")
-    public ResponseEntity<?> deleteNews(@PathVariable (value = "newsTypeId") Integer newsTypeId,
-                                           @PathVariable (value = "newsId") Integer newsId) {
-        return newsRepository.findByIdAndNewsTypeId(newsId, newsTypeId).map(news -> {
+    @DeleteMapping("/{newsId}")
+    public ResponseEntity<?> deleteNews(@PathVariable(value = "newsId") Integer newsId) {
+        return newsRepository.findById(newsId).map(news -> {
             newsRepository.delete(news);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("News not found with id " + newsId + " and news type id " + newsTypeId));
+        }).orElseThrow(() -> new ResourceNotFoundException("News not found with id " + newsId));
     }
 
-        @GetMapping("/news")
-    public List<News> getAll(){
+    @GetMapping
+    public List<News> getAllNews() {
         List<News> allNews = newsRepository.findAll();
         return allNews;
     }

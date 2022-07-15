@@ -3,12 +3,11 @@ package com.rostislavlozko.testovoe.centrcifraz.springboot.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "news_type")
+@Table(name = "news_type", uniqueConstraints = { @UniqueConstraint(columnNames = { "name_type", "color_type" }) })
 public class NewsType {
 
     @Id
@@ -25,6 +24,7 @@ public class NewsType {
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "newsType")
+    @JsonIgnore
     protected List<News> newsList = new ArrayList<>();
 
     public NewsType() {
@@ -79,4 +79,5 @@ public class NewsType {
                 ", color=" + color +
                 '}';
     }
+
 }

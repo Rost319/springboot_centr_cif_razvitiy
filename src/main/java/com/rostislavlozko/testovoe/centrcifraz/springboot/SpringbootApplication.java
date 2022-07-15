@@ -32,12 +32,6 @@ public class SpringbootApplication {
             newsTypeRepository.save(newsType1);
             newsTypeRepository.save(newsType2);
 
-
-
-//            newsRepo.save(new News("Global warming", "Changing of the climate", "Due to global warming, Spain and Portugal are experiencing the worst drought in 1200 years.", newsType1));
-//            newsRepo.save(new News("Intel", "Intel Meteor Lake processors", "Intel Meteor Lake processors will have a third type of cores", newsType2));
-//            newsRepo.save(new News("NVIDIA", "Nvidia shares fell 30%", "The developer of graphics processors and chips Nvidia reported on the financial results of the fourth quarter and the entire fiscal year.", newsType1));
-
         };
     }
 

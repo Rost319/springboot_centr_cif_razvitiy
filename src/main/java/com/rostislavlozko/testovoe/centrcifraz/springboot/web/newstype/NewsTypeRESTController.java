@@ -10,26 +10,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(value = NewsTypeRESTControllerTest.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class NewsTypeRESTControllerTest {
-    static final String REST_URL = "/api";
+@RequestMapping(value = NewsTypeRESTController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class NewsTypeRESTController {
+    static final String REST_URL = "/api/news-type";
 
     @Autowired
     private NewsTypeRepository newsTypeRepository;
 
-    @GetMapping("/news-type")
+    @GetMapping
     public List<NewsType> getAllNewsType() {
         return newsTypeRepository.findAll();
     }
 
-    @PostMapping("/news-type")
+    @PostMapping
     public NewsType createNewsType(@RequestBody NewsType newsType) {
         return newsTypeRepository.save(newsType);
     }
 
-    @PutMapping("/news-type/{newsTypeId}")
+    @PutMapping("/{newsTypeId}")
     public NewsType updateNewsType(@PathVariable Integer newsTypeId, @RequestBody NewsType newsTypeRequest) {
         return newsTypeRepository.findById(newsTypeId).map(newsType -> {
             newsType.setName(newsTypeRequest.getName());
@@ -38,23 +39,22 @@ public class NewsTypeRESTControllerTest {
         }).orElseThrow(() -> new ResourceNotFoundException("NewsTypeId " + newsTypeId + " not found"));
     }
 
-    @DeleteMapping("/news-type/{newsTypeId}")
-    public ResponseEntity<?> deletePost(@PathVariable Integer newsTypeId) {
+    @DeleteMapping("/{newsTypeId}")
+    public ResponseEntity<?> deleteNewsType(@PathVariable Integer newsTypeId) {
         return newsTypeRepository.findById(newsTypeId).map(post -> {
             newsTypeRepository.delete(post);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("NewsTypeId " + newsTypeId + " not found"));
     }
 
-    @GetMapping("/news-type/{id}")
+    @GetMapping("/{newsTypeId}")
     public NewsType getNewsType(@PathVariable int newsTypeId){
-        NewsType newsType = newsTypeRepository.findById(newsTypeId).get();
-
-        if(newsType == null) {
-            new ResourceNotFoundException("NewsTypeId " + newsTypeId + " not found");
+        Optional<NewsType> optional = newsTypeRepository.findById(newsTypeId);
+        if(!optional.isPresent()){
+            throw new ResourceNotFoundException("NewsId " + newsTypeId + " not found");
         }
 
-        return newsType;
+        return optional.get();
     }
 
 }

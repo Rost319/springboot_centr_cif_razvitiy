@@ -4,7 +4,7 @@ package com.rostislavlozko.testovoe.centrcifraz.springboot.service.newstype;
 
 
 
-import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.News;
+
 import com.rostislavlozko.testovoe.centrcifraz.springboot.entity.NewsType;
 
 import java.util.List;
